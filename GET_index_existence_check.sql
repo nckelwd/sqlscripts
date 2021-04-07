@@ -33,9 +33,9 @@ WHILE @@FETCH_STATUS = 0
 
 BEGIN
 	IF EXISTS (SELECT * FROM sys.indexes where name = @name)
-		PRINT @name + ' already exists in AssignmentProRep.';
+		PRINT 'The index already exists.';
 	ELSE 
-		Print @name + ' needs to be created.';
+		Print @name + ' needs to be created in AssignmentProRep.';
 FETCH NEXT FROM db_cursor INTO @name 
 END
 
