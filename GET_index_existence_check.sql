@@ -21,13 +21,13 @@ VALUES
 
 DECLARE @name VARCHAR(100)
 
-DECLARE db_cursor CURSOR FOR
+DECLARE index_cursor CURSOR FOR
 SELECT IndexName
 FROM @AProRepIndexes
 
-OPEN db_cursor
+OPEN index_cursor
 
-FETCH NEXT FROM db_cursor INTO @name
+FETCH NEXT FROM index_cursor INTO @name
 
 WHILE @@FETCH_STATUS = 0
 
@@ -36,11 +36,11 @@ BEGIN
 		PRINT 'The index already exists.';
 	ELSE 
 		Print @name + ' needs to be created in AssignmentProRep.';
-FETCH NEXT FROM db_cursor INTO @name 
+FETCH NEXT FROM index_cursor INTO @name 
 END
 
 
-CLOSE db_cursor
+CLOSE index_cursor
 
-DEALLOCATE db_cursor
+DEALLOCATE index_cursor
 
