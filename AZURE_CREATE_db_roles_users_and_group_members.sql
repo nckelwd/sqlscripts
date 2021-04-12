@@ -63,8 +63,7 @@ FETCH NEXT FROM role_cursor INTO @role
 WHILE @@FETCH_STATUS = 0
 
 BEGIN
-	IF NOT EXISTS (SELECT * from sys.database_role_members WHERE USER_NAME(member_principal_id) = @userName)
-		EXEC sp_addrolemember @role, @userName
+	EXEC sp_addrolemember @role, @userName
 FETCH NEXT FROM role_cursor INTO @role 
 END
 
