@@ -9,7 +9,7 @@ DECLARE @BranchPriKey INT
  --Change this to match the branch name you want to add to Security Profile
 SELECT @BranchPriKey = [BranchPriKey]
 FROM MoversSuite2.dbo.Branch
-WHERE Name = 'MIL XXXX'
+WHERE Name = 'MIL 9979'
 
 IF OBJECT_ID(N'tempdb..#SecProfileDetail') IS NOT NULL DROP TABLE #SecProfileDetail
 

@@ -10,7 +10,7 @@ DECLARE @BranchPriKey INT
 DECLARE @BranchName varchar(30)
 
 --Change this to the Branch you want to add
-SET @BranchName = 'MIL XXXX' 
+SET @BranchName = 'MIL 9979' 
 
 SELECT @BranchPriKey = [BranchPriKey] FROM MoversSuite2.dbo.Branch WHERE Name = @BranchName
 
