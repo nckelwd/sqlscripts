@@ -33,8 +33,8 @@ DECLARE @AgentID VARCHAR(10),@AgentName VARCHAR(30)
 SET @AgentID = 'U9979';
 SET @AgentName = 'FULL AGENT NAME';
 
-INSERT INTO [MoversSuite2].[dbo].[Agent](AgentID,Name,County,Memo,VLPriKey,IsActive,HaulOwnAuthority,HaulVanLineAuthority,IsForwardingAgent)
-VALUES(@AgentID,@AgentName,NULL,NULL,2,1,0,0,0);
+INSERT INTO [MoversSuite2].[dbo].[Agent](AgentID,Name,County,Memo,VLPriKey,VendorID,IsActive,HaulOwnAuthority,HaulVanLineAuthority,IsForwardingAgent)
+VALUES(@AgentID,@AgentName,NULL,NULL,2,NULL,1,0,0,0);
 
 --SELECT * FROM MoversSuite2.dbo.Agent WHERE AgentID = 'U9979'
 
@@ -105,7 +105,7 @@ SET @AgentCode = 'XYZX';
 
 
 INSERT INTO [MoversSuite2].[dbo].[OrderNumbers](Description,Prefix,Minimum,Maximum,YearLength,NextYear,CurrentYear,NextNoInSeq,NextYrNextNo,VanlineFID)
-VALUES(@OADescription,@AgentCode,1,99999,2,2020,2019,1,1,NULL);
+VALUES(@OADescription,@AgentCode,1,99999,2,2022,2021,1,1,NULL);
 
 --SELECT * FROM [MoversSuite2].[dbo].[OrderNumbers] WHERE Description = '9979 Own Authority'
 
@@ -125,7 +125,7 @@ SET @VLADescription = '9979 Van Lines Authority';
 SET @AgentNum = '9979';
 
 INSERT INTO [MoversSuite2].[dbo].[OrderNumbers](Description,Prefix,Minimum,Maximum,YearLength,NextYear,CurrentYear,NextNoInSeq,NextYrNextNo,VanlineFID)
-VALUES(@VLADescription,@AgentNum,1001,99999,1,2020,2019,1001,1001,2);
+VALUES(@VLADescription,@AgentNum,1001,99999,1,2022,2021,1001,1001,2);
 
 --SELECT * FROM [MoversSuite2].[dbo].[OrderNumbers] WHERE Description = '9979 Van Lines Authority'
 
@@ -196,11 +196,11 @@ DECLARE @AgentCode VARCHAR(10)
 
 SELECT @AgentCode = [BranchPriKey] FROM [MoversSuite2].[dbo].[Branch] WHERE BranchID = 'XYZX'
 
-INSERT INTO [MoversSuite2].[dbo].[XmlInterfaceBranch](XmlInterfaceFID,BranchFID,AuthorityFID)
-VALUES(1,@AgentCode,2)
+INSERT INTO [MoversSuite2].[dbo].[XmlInterfaceBranch](XmlInterfaceFID,BranchFID,AuthorityFID,ExternalCode)
+VALUES(1,@AgentCode,2,NULL)
 
-INSERT INTO [MoversSuite2].[dbo].[XmlInterfaceBranch](XmlInterfaceFID,BranchFID,AuthorityFID)
-VALUES(6,@AgentCode,1)
+INSERT INTO [MoversSuite2].[dbo].[XmlInterfaceBranch](XmlInterfaceFID,BranchFID,AuthorityFID,ExternalCode)
+VALUES(6,@AgentCode,1,NULL)
 
 --SELECT * FROM [XmlInterfaceBranch] WHERE BranchFID = (SELECT [BranchPriKey] FROM [MoversSuite2].[dbo].[Branch] WHERE BranchID = 'XYZX')
 
