@@ -17,7 +17,7 @@ Company GL Code		2117
 
 
 /****************************************************************************************
-Create an Agent entry in MoversSuite
+Create an Agent entry in MoversSuite (Customer Service > Agent)
 BEGIN TRAN
 ROLLBACK TRAN
 COMMIT TRAN
@@ -39,7 +39,7 @@ VALUES(@AgentID,@AgentName,NULL,NULL,2,NULL,1,0,0,0);
 --SELECT * FROM MoversSuite2.dbo.Agent WHERE AgentID = 'U9979'
 
 /****************************************************************************************
-Create a GL Control Code entry in MoversSuite
+Create a GL Control Code entry in MoversSuite (Accounting and Financial Services > GL Control Code)
 BEGIN TRAN
 ROLLBACK TRAN
 COMMIT TRAN
@@ -59,7 +59,7 @@ VALUES(@AgentCode,'SUDDATH37\Edison','SRS','ZZZZZZ','DYNAMICS');
 --SELECT * FROM MoversSuite2.dbo.GLControl WHERE Description = 'XYZX'
 
 /****************************************************************************************
-Create a Branch entry in MoversSuite
+Create a Branch entry in MoversSuite (Administration > Branch)
 BEGIN TRAN
 ROLLBACK TRAN
 COMMIT TRAN
@@ -68,7 +68,7 @@ COMMIT TRAN
 USE MoversSuite2
 GO
 
-DECLARE @AgentCode VARCHAR(10),@BranchDispName VARCHAR(30),@AgentPriKeyV INT,@VanLineType INT,@BranchGLCode INT,@GLControlPriKey INT
+DECLARE @AgentCode VARCHAR(10),@BranchDispName VARCHAR(30),@AgentPriKeyV INT,@VanLineType INT,@BranchGLCode INT,@GLControlPriKey INT, @CompanyGLCode INT
 
 --The Branch Display Name for SCACs is different from the Agent Name normally used when adding a branch; Here, we predicate the Agent Number with 'MIL '
 --The Van Line Type can also be changed to align with the Move Authority; Here, we are using (2) Own Authority
@@ -77,19 +77,19 @@ SET @AgentCode = 'XYZX';
 SET @BranchDispName = 'MIL 9979';
 SET @VanLineType = 2;
 SET @BranchGLCode = '8878';
-
+SET @CompanyGLCode = '2117';
 
 SELECT @AgentPriKeyV = [AgentPriKey] FROM MoversSuite2.dbo.Agent WHERE AgentID = 'U9979' 
---SELECT @GLControlPriKey = [GLCPriKey] FROM MoversSuite2.dbo.GLControl WHERE Description = 'U9979'
+SELECT @GLControlPriKey = [GLCPriKey] FROM MoversSuite2.dbo.GLControl WHERE Description = 'XYZX'
 
 INSERT INTO [MoversSuite2].[dbo].[Branch](BranchID,Name,AgentPriKey,Prefix,Sequence,GLCode,GLCPriKey,VLPriKey,CompanyGLCode,CommonView,ImageURL,DOT,AdvanceCompanyNumber,AdvanceFTPHostDirectory,AuthorityTypeFID,SalesTaxCompanyCode,CostBenefitsPercentage,DefaultDriveTime,LaborRatingGroupFID,MssTimeZoneFID)
-VALUES(@AgentCode,@BranchDispName,@AgentPriKeyV,NULL,0,@BranchGLCode,130,@VanLineType,2117,NULL,NULL,NULL,'SU001','movers',1,NULL,NULL,NULL,NULL,NULL);
+VALUES(@AgentCode,@BranchDispName,@AgentPriKeyV,NULL,0,@BranchGLCode,@GLControlPriKey,@VanLineType,@CompanyGLCode,NULL,NULL,NULL,'SU001','movers',1,NULL,NULL,NULL,NULL,NULL);
 
 
 --SELECT * FROM [MoversSuite2].[dbo].[Branch] WHERE BranchID = 'XYZX';
 
 /****************************************************************************************
-Create Order Number entries in MoversSuite (Part 1)
+Create Order Number entries in MoversSuite (Part 1) (Administration > Order Number)
 BEGIN TRAN
 ROLLBACK TRAN
 COMMIT TRAN
@@ -110,7 +110,7 @@ VALUES(@OADescription,@AgentCode,1,99999,2,2022,2021,1,1,NULL);
 --SELECT * FROM [MoversSuite2].[dbo].[OrderNumbers] WHERE Description = '9979 Own Authority'
 
 /****************************************************************************************
-Create Order Number entries in MoversSuite (Part 2)
+Create Order Number entries in MoversSuite (Part 2) (Administration > Order Number)
 BEGIN TRAN
 ROLLBACK TRAN
 COMMIT TRAN
@@ -130,7 +130,7 @@ VALUES(@VLADescription,@AgentNum,1001,99999,1,2022,2021,1001,1001,2);
 --SELECT * FROM [MoversSuite2].[dbo].[OrderNumbers] WHERE Description = '9979 Van Lines Authority'
 
 /****************************************************************************************
-Create Move Type entries in MoversSuite
+Create Move Type entries in MoversSuite (Administration > Move Type)
 BEGIN TRAN
 ROLLBACK TRAN
 COMMIT TRAN
@@ -164,7 +164,7 @@ VALUES('Mil Intra',1,@OAPriKey,@AgentCode,16,0,0,0);
 --SELECT * FROM [MoversSuite2].[dbo].[MoveType] WHERE BranchPriKey = (SELECT [BranchPriKey] FROM [MoversSuite2].[dbo].[Branch] WHERE BranchID = 'XYZX')
 
 /****************************************************************************************
-Create an Service Type entry in MoversSuite
+Create an Service Type entry in MoversSuite (Operations > Local Service Type)
 BEGIN TRAN
 ROLLBACK TRAN
 COMMIT TRAN
@@ -183,7 +183,7 @@ VALUES('Do Not Request Service Fm 9979','No Provider',1,NULL,@AgentCode,NULL,0,0
 --SELECT * FROM [MoversSuite2].[dbo].[ServType] WHERE BranchPriKey = (SELECT [BranchPriKey] FROM [MoversSuite2].[dbo].[Branch] WHERE BranchID = 'XYZX')
 
 /****************************************************************************************
-Add XML Interfaces to existing entries in MoversSuite
+Add XML Interfaces to existing entries in MoversSuite (Administration > XML Interface)
 BEGIN TRAN
 ROLLBACK TRAN
 COMMIT TRAN
@@ -205,7 +205,7 @@ VALUES(6,@AgentCode,1,NULL)
 --SELECT * FROM [XmlInterfaceBranch] WHERE BranchFID = (SELECT [BranchPriKey] FROM [MoversSuite2].[dbo].[Branch] WHERE BranchID = 'XYZX')
 
 /****************************************************************************************
-Create Military Carrier entry in MoversSuite
+Create Military Carrier entry in MoversSuite (Military > Carrier)
 BEGIN TRAN
 ROLLBACK TRAN
 COMMIT TRAN
